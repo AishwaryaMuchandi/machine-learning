@@ -1,0 +1,28 @@
+import pandas as pd
+import numpy as np
+import datetime
+import sklearn.cluster
+import matplotlib.pyplot as plt
+#from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+start_time = datetime.datetime.now()
+df=pd.read_csv(r'''C:\Users\Aishwarya S Muchandi\Desktop\train.csv''')
+Y=df.head(100)
+y = Y.label
+#  print(y)
+# print("Df size =",np.shape(df))
+x = Y.loc[:, df.columns != 'label']
+# print(x)
+# print("x=",np.shape(x))
+# print("y=",np.shape(y))
+# print("hi")
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2)
+logisticRegr = LogisticRegression()
+logisticRegr.fit(x_train, y_train)
+predictions = logisticRegr.predict(x_test)
+# print("hi")
+print(predictions)
+print(accuracy_score(y_test,predictions))
+print((datetime.datetime.now() - start_time).seconds)
