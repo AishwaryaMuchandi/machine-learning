@@ -1,0 +1,30 @@
+import pandas as pd
+import numpy as np
+import scipy.linalg as slin
+df=pd.read_csv("/Users/peter/Downloads/kc_house_data.csv")
+df.head()
+df.drop(['id','date','condition','grade','zipcode','lat','long'],axis=1,inplace=True)
+print(df)
+X=df
+y=df['price']
+print("X = \n",X)
+print("y = \n",y)
+theta = []
+m = np.shape(X)
+print("Dimensions of X : ",m)
+bias_vector=np.ones((21613,1))
+print(bias_vector)
+X=np.append(bias_vector,X,axis=1)
+X_trans=np.transpose(X)
+print(X)
+print("X = ",np.shape(X))
+theta=slin.inv(X_trans.dot(X))
+print("theta =",np.shape(theta))
+print("y =",np.shape(y))
+ans= []
+print("X_trans =",np.shape(X_trans))
+ans= X_trans.dot(y)
+print(ans)
+theta= theta*ans
+print("theta = \n",theta)
+print("Dimensions of theta =",np.shape(theta))
